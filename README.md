@@ -1,3 +1,5 @@
+## `🤖 Build with AI Assistance` 
+
 # code-to-snippet
 
 Convert plain code into a VS Code snippet, right in the browser.
