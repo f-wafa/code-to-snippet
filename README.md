@@ -1,5 +1,7 @@
 # code-to-snippet
 
+Live site: **https://f-wafa.github.io/code-to-snippet/**
+
 Convert plain code into a VS Code snippet, right in the browser.
 
 Paste your code, set a name, prefix, description, and language scope, then copy the generated
@@ -56,6 +58,7 @@ Turn off **Keep VS Code placeholders** to escape every dollar sign.
 index.html         Markup and content
 assets/styles.css  Simple light theme
 assets/app.js      Conversion logic and UI behavior
+assets/og-image.png  1200×630 social preview image
 server.js          Tiny static dev server (no dependencies)
 favicon.svg        Site icon
 ```
