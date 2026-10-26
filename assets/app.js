@@ -1,7 +1,6 @@
 /* ------------------------------------------------------------------
    Code to Snippet
    Converts plain code into VS Code .code-snippets JSON.
-   No dependencies, no network requests.
 ------------------------------------------------------------------ */
 
 (() => {
