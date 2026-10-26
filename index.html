@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code to Snippet — Plain code into VS Code snippets</title>
+  <meta name="description" content="Convert plain code into a ready-to-use VS Code snippet. Set a name, prefix, and language scope, then copy the JSON or download a .code-snippets file. Runs entirely in your browser.">
+  <meta name="theme-color" content="#f6f7f9">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#tool">Skip to converter</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Code to Snippet home">
+        <span class="brand-mark" aria-hidden="true">{ }</span>
+        <span class="brand-text">code<span class="brand-arrow">→</span>snippet</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#how-it-works">How it works</a>
+        <a href="#placeholders">Placeholders</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>VS Code snippet generator</p>
+      <h1>Plain code in.<br><span class="accent">Snippet out.</span></h1>
+      <p class="lede">
+        Paste your code, give it a name and prefix, and get a ready-to-use VS Code snippet file.
+        Everything runs locally in your browser.
+      </p>
+      <div class="hero-meta" aria-label="Highlights">
+        <span class="meta-item">Runs locally</span>
+        <span class="meta-item">No sign-up</span>
+        <span class="meta-item">Ready for VS Code</span>
+      </div>
+    </section>
+
+    <section class="wrap tool" id="tool" aria-label="Snippet converter">
+      <div class="card settings">
+        <div class="card-head">
+          <div>
+            <h2>Snippet details</h2>
+            <p>These become the keys and values in your snippet file.</p>
+          </div>
+          <span class="badge">VS Code JSON</span>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="snippet-name">Name</label>
+            <input id="snippet-name" type="text" value="Greeting function" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="snippet-prefix">Prefix</label>
+            <input id="snippet-prefix" type="text" value="greet" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="snippet-description">Description <span class="optional">optional</span></label>
+            <input id="snippet-description" type="text" value="Log a friendly greeting" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="snippet-scope">Scope <span class="optional">optional</span></label>
+            <select id="snippet-scope">
+              <option value="">All languages</option>
+              <option value="javascript" selected>JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="javascriptreact">JavaScript React</option>
+              <option value="typescriptreact">TypeScript React</option>
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="scss">SCSS</option>
+              <option value="json">JSON</option>
+              <option value="markdown">Markdown</option>
+              <option value="python">Python</option>
+              <option value="php">PHP</option>
+              <option value="ruby">Ruby</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+              <option value="java">Java</option>
+              <option value="c">C</option>
+              <option value="cpp">C++</option>
+              <option value="csharp">C#</option>
+              <option value="shellscript">Shell</option>
+              <option value="powershell">PowerShell</option>
+              <option value="sql">SQL</option>
+              <option value="yaml">YAML</option>
+              <option value="vue">Vue</option>
+              <option value="svelte">Svelte</option>
+              <option value="dart">Dart</option>
+              <option value="kotlin">Kotlin</option>
+              <option value="swift">Swift</option>
+              <option value="lua">Lua</option>
+              <option value="r">R</option>
+              <option value="graphql">GraphQL</option>
+              <option value="dockerfile">Dockerfile</option>
+              <option value="plaintext">Plain text</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-foot">
+          <label class="toggle">
+            <input id="keep-placeholders" type="checkbox" checked>
+            <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+            <span class="toggle-text">Keep VS Code placeholders <span class="hint">$1, ${1:name}</span></span>
+          </label>
+          <p class="micro">Turn this off to treat every <code>$</code> as literal text.</p>
+        </div>
+      </div>
+      <div class="workspace">
+        <section class="card editor-card" aria-labelledby="input-title">
+          <header class="card-head editor-head">
+            <div class="head-title">
+              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <h2 id="input-title">Your code</h2>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-ghost" id="load-example" type="button">Load example</button>
+              <button class="btn btn-ghost" id="clear-code" type="button">Clear</button>
+            </div>
+          </header>
+          <div class="editor-shell">
+            <div class="editor" id="input-editor">
+              <div class="gutter" id="input-gutter" aria-hidden="true"><div class="gutter-inner"></div></div>
+              <textarea id="code-input" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off"
+                aria-label="Plain code input" placeholder="Paste your code here…"></textarea>
+            </div>
+          </div>
+          <footer class="card-foot">
+            <span id="input-stats">1 line · 0 characters</span>
+            <span class="foot-hint">Tab inserts 2 spaces</span>
+          </footer>
+        </section>
+
+        <section class="card editor-card" aria-labelledby="output-title">
+          <header class="card-head editor-head">
+            <div class="head-title">
+              <span class="status-dot" id="status-dot" aria-hidden="true"></span>
+              <h2 class="file-name" id="output-title">greeting-function.code-snippets</h2>
+            </div>
+            <div class="head-actions">
+              <button class="btn" id="copy-output" type="button" disabled aria-label="Copy snippet JSON">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5.6" y="5.6" width="7.4" height="7.4" rx="1.4"/>
+                  <path d="M10.4 5.6V4.2A1.6 1.6 0 0 0 8.8 2.6H4.2A1.6 1.6 0 0 0 2.6 4.2v4.6a1.6 1.6 0 0 0 1.6 1.6h1.4"/>
+                </svg>
+                <span>Copy</span>
+              </button>
+              <button class="btn btn-primary" id="download-output" type="button" disabled aria-label="Download .code-snippets file">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 2.4v7.2"/>
+                  <path d="m5.2 6.8 2.8 2.8 2.8-2.8"/>
+                  <path d="M2.6 11.4v.9a1.3 1.3 0 0 0 1.3 1.3h8.2a1.3 1.3 0 0 0 1.3-1.3v-.9"/>
+                </svg>
+                <span>Download</span>
+              </button>
+            </div>
+          </header>
+          <div class="editor-shell">
+            <div class="editor" id="output-editor">
+              <div class="gutter" id="output-gutter" aria-hidden="true"><div class="gutter-inner"></div></div>
+              <div class="viewport" id="output-viewport">
+                <pre class="code-output" id="output-code" tabindex="0" aria-label="Generated VS Code snippet JSON"></pre>
+              </div>
+              <div class="editor-empty" id="output-empty">
+                <strong id="empty-title">Nothing to convert yet</strong>
+                <span id="empty-copy">Paste some code to see the snippet.</span>
+              </div>
+            </div>
+          </div>
+          <footer class="card-foot">
+            <span class="status" id="output-status" aria-live="polite">Ready to copy or download.</span>
+            <span class="foot-hint">Ctrl/⌘ + Enter to copy</span>
+          </footer>
+        </section>
+      </div>
+
+      <p class="local-note">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3.2" y="7" width="9.6" height="6.4" rx="1.5"/>
+          <path d="M5.4 7V5.2a2.6 2.6 0 0 1 5.2 0V7"/>
+        </svg>
+        Your code never leaves this page. Conversion runs locally in your browser.
+      </p>
+    </section>
+    <section class="wrap info" id="how-it-works">
+      <div class="info-steps">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>How it works</p>
+        <h2>From clipboard to command palette.</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-num" aria-hidden="true">1</span>
+            <div>
+              <h3>Paste your code</h3>
+              <p>Drop in a function, a config block, or any plain text. Line breaks and indentation are preserved.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">2</span>
+            <div>
+              <h3>Describe the snippet</h3>
+              <p>Choose a name, the prefix you will type in VS Code, and an optional language scope.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">3</span>
+            <div>
+              <h3>Copy or download</h3>
+              <p>Paste the JSON into your user snippets, or save the <code>.code-snippets</code> file and keep it with your setup.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="step-note">In VS Code, open the Command Palette and run <strong>Preferences: Configure User Snippets</strong> to add it.</p>
+      </div>
+
+      <aside class="card cheat" id="placeholders" aria-labelledby="cheat-title">
+        <div class="card-head">
+          <div>
+            <h2 id="cheat-title">Placeholder cheat sheet</h2>
+            <p>Useful when “Keep placeholders” is on.</p>
+          </div>
+        </div>
+        <dl class="cheat-list">
+          <div><dt><code>$1</code></dt><dd>Tab stop — the cursor lands here</dd></div>
+          <div><dt><code>${1:name}</code></dt><dd>Tab stop with default text</dd></div>
+          <div><dt><code>${1|a,b|}</code></dt><dd>Choose from a list of options</dd></div>
+          <div><dt><code>$TM_FILENAME</code></dt><dd>Name of the current file</dd></div>
+          <div><dt><code>\$</code></dt><dd>Literal dollar sign</dd></div>
+        </dl>
+        <p class="cheat-note">Plain <code>$</code> characters are escaped automatically, so jQuery, PHP, and template literals keep working.</p>
+      </aside>
+    </section>
+
+    <section class="wrap faq" id="faq" aria-labelledby="faq-title">
+      <div class="faq-intro">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>FAQ</p>
+        <h2 id="faq-title">Good to know.</h2>
+        <p>Short answers about snippet files, dollar signs, and prefixes.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Where do I put the generated file?</summary>
+          <p>Save the downloaded <code>.code-snippets</code> file in your VS Code snippets folder, or open the Command Palette and run <strong>Preferences: Configure User Snippets</strong>. You can paste the JSON into an existing snippet file as well.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why is my dollar sign escaped?</summary>
+          <p>VS Code uses <code>$</code> for tab stops and variables. The converter escapes dollars that are not snippet syntax, so code such as <code>$('.item')</code> or <code>${name}</code> stays intact. Turn off “Keep placeholders” to escape every dollar sign.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What is a prefix?</summary>
+          <p>The prefix is the shortcut you type in the editor to insert the snippet. For example, a prefix of <code>greet</code> lets you type <code>greet</code>, press Tab, and expand the snippet.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my code uploaded anywhere?</summary>
+          <p>No. There is no server, account, or analytics. The conversion runs entirely in this browser tab.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span class="footer-brand">code<span aria-hidden="true">→</span>snippet</span>
+      <span class="footer-meta">
+        Runs locally · <a href="LICENSE">MIT licensed</a>
+      </span>
+    </div>
+  </footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>
