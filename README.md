@@ -20,19 +20,6 @@ JSON or download a ready-to-use `.code-snippets` file. No build step, no depende
 - Keyboard friendly: `Tab` inserts spaces, `Ctrl/⌘ + Enter` copies
 - Responsive, dependency-free, and fully client-side
 
-## Usage
-
-Open `index.html` directly in a browser, or run the included dependency-free dev server:
-
-```bash
-node server.js
-```
-
-Then visit `http://127.0.0.1:4173`.
-
-To use a different port, run `$env:PORT=8080; node server.js` in PowerShell
-(`PORT=8080 node server.js` on macOS/Linux).
-
 ### Installing a generated snippet in VS Code
 
 1. Copy the JSON or download the `.code-snippets` file.
