@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Code to Snippet — social preview</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background:
+      radial-gradient(900px 420px at 22% -10%, #e8edff 0%, rgba(232, 237, 255, 0) 68%),
+      #f6f7f9;
+    color: #15171c;
+    font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .frame {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 512px;
+    gap: 56px;
+    height: 100%;
+    padding: 58px 64px 0;
+  }
+
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { display: block; width: 46px; height: 46px; border-radius: 12px; }
+  .wordmark { font-size: 22px; font-weight: 650; letter-spacing: -0.02em; }
+  .wordmark span { margin: 0 6px; color: #9aa1ae; font-weight: 400; }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 9px;
+    margin: 46px 0 16px;
+    color: #6b7280; font-size: 14px; font-weight: 650;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #2f5bea; box-shadow: 0 0 0 4px #eef2ff;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 78px; line-height: 1.02; font-weight: 700;
+    letter-spacing: -0.045em;
+  }
+  h1 em { font-style: normal; color: #2f5bea; }
+
+  .lede {
+    max-width: 480px;
+    margin: 22px 0 0;
+    color: #3d424d; font-size: 20px; line-height: 1.5;
+  }
+
+  .chips { display: flex; gap: 10px; margin-top: 26px; }
+  .chip {
+    padding: 8px 15px; border: 1px solid #e4e6ea; border-radius: 999px;
+    background: #fff; color: #3d424d; font-size: 14px; font-weight: 500;
+  }
+
+  .card {
+    align-self: center;
+    margin-top: 4px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #15171c;
+    box-shadow: 0 26px 50px -30px rgba(16, 24, 40, 0.55), 0 2px 6px rgba(16, 24, 40, 0.12);
+    font-family: Consolas, "Cascadia Code", monospace;
+  }
+  .card-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 13px 18px;
+    background: #191c22;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: #8b93a3; font-size: 13.5px;
+  }
+  .dots { display: flex; gap: 5px; margin-right: 6px; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; background: #3a4050; }
+  .card-head .ok { margin-left: auto; display: flex; align-items: center; gap: 6px; color: #6f7d92; }
+  .card-head .ok i { width: 7px; height: 7px; border-radius: 50%; background: #1f9d67; }
+
+  .code { padding: 16px 18px 20px; color: #d6dae2; font-size: 14.5px; line-height: 24px; }
+  .row { display: flex; gap: 16px; }
+  .ln { width: 22px; flex: none; text-align: right; color: #5b6474; }
+  .k { color: #a9c4ff; }
+  .s { color: #b9dfa8; }
+  .p { color: #7e8798; }
+
+  .foot {
+    position: absolute; left: 64px; right: 64px; bottom: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 62px;
+    border-top: 1px solid #e4e6ea;
+    color: #6b7280; font-size: 15px;
+  }
+  .foot .url { font-family: Consolas, monospace; letter-spacing: -0.01em; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div>
+      <div class="brand">
+        <img src="../assets/logo.svg" width="46" height="46" alt="">
+        <span class="wordmark">code<span>&rarr;</span>snippet</span>
+      </div>
+
+      <div class="eyebrow"><span class="dot"></span>VS Code snippet generator</div>
+      <h1>Plain code in.<br><em>Snippet out.</em></h1>
+      <p class="lede">Turn plain code into a ready-to-use VS Code snippet. Copy the JSON or download a .code-snippets file.</p>
+      <div class="chips">
+        <span class="chip">Runs locally</span>
+        <span class="chip">No sign-up</span>
+        <span class="chip">VS Code ready</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="dots"><i></i><i></i><i></i></span>
+        greeting-function.code-snippets
+        <span class="ok"><i></i>valid</span>
+      </div>
+      <div class="code">
+        <div class="row"><span class="ln">1</span><span class="p">{</span></div>
+        <div class="row"><span class="ln">2</span><span><span class="k">"Greeting function"</span><span class="p">: {</span></span></div>
+        <div class="row"><span class="ln">3</span><span>&nbsp;&nbsp;<span class="k">"prefix"</span><span class="p">: </span><span class="s">"greet"</span><span class="p">,</span></span></div>
+        <div class="row"><span class="ln">4</span><span>&nbsp;&nbsp;<span class="k">"body"</span><span class="p">: [</span></span></div>
+        <div class="row"><span class="ln">5</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"function greet(name) {"</span><span class="p">,</span></span></div>
+        <div class="row"><span class="ln">6</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"  console.log(\"Hello, \" + name);"</span><span class="p">,</span></span></div>
+        <div class="row"><span class="ln">7</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"}"</span><span class="p">,</span></span></div>
+        <div class="row"><span class="ln">8</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">""</span><span class="p">,</span></span></div>
+        <div class="row"><span class="ln">9</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="s">"greet(\"World\");"</span></span></div>
+        <div class="row"><span class="ln">10</span><span>&nbsp;&nbsp;<span class="p">],</span></span></div>
+        <div class="row"><span class="ln">11</span><span>&nbsp;&nbsp;<span class="k">"scope"</span><span class="p">: </span><span class="s">"javascript"</span></span></div>
+        <div class="row"><span class="ln">12</span><span class="p">}</span></div>
+        <div class="row"><span class="ln">13</span><span class="p">}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="url">f-wafa.github.io/code-to-snippet</span>
+    <span>Open source &middot; MIT</span>
+  </div>
+</body>
+</html>

@@ -4,7 +4,8 @@
   "private": true,
   "description": "Convert plain code into VS Code snippets in the browser.",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "og": "node tools/generate-og.js"
   },
   "license": "MIT"
 }

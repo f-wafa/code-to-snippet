@@ -60,10 +60,25 @@ Turn off **Keep VS Code placeholders** to escape every dollar sign.
 index.html         Markup and content
 assets/styles.css  Simple light theme
 assets/app.js      Conversion logic and UI behavior
+assets/logo.svg    Logo mark (header, favicon, social image)
 assets/og-image.png  1200×630 social preview image
+tools/og-template.html  Source layout for the social image
+tools/generate-og.js    Renders the social image with headless Edge/Chrome
 server.js          Tiny static dev server (no dependencies)
-favicon.svg        Site icon
+favicon.svg        Site icon (same artwork as assets/logo.svg)
 ```
+
+## Regenerating the social image
+
+`assets/og-image.png` is generated from `tools/og-template.html` at 1200×630 using a
+locally installed Edge or Chrome, so no npm dependencies are required:
+
+```bash
+node tools/generate-og.js
+```
+
+The script finds the browser automatically and verifies the output size. Edit the HTML
+template (headline, logo, colors, code sample) and run it again after a rebrand.
 
 ## License
 
