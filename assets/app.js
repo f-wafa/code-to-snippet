@@ -399,7 +399,7 @@
     }
 
     if (!copied) {
-      setStatus("Copy failed — select the JSON and copy it manually.", "error");
+      setStatus("Copy failed. Select the JSON and copy it manually.", "error");
       return;
     }
 
@@ -447,6 +447,107 @@
     update();
     els.code.focus();
   }
+
+  const SCROLL_MIN_MS = 200;
+  const SCROLL_MAX_MS = 520;
+  const SCROLL_BASE_MS = 120;
+  const SCROLL_MS_PER_PX = 0.18;
+  const SCROLL_KEYS = new Set([
+    "ArrowUp",
+    "ArrowDown",
+    "PageUp",
+    "PageDown",
+    "Home",
+    "End",
+    " ",
+    "Escape",
+    "Tab",
+  ]);
+
+  let scrollToken = 0;
+
+  function scrollDuration(distance) {
+    // Native smooth scroll still takes about 250ms for a short hop.
+    return Math.min(
+      SCROLL_MAX_MS,
+      Math.max(SCROLL_MIN_MS, SCROLL_BASE_MS + distance * SCROLL_MS_PER_PX),
+    );
+  }
+
+  function cancelScroll() {
+    scrollToken += 1;
+  }
+
+  function scrollToHash(hash) {
+    let id;
+    try {
+      id = decodeURIComponent(hash.slice(1));
+    } catch {
+      return false;
+    }
+
+    const target = id ? document.getElementById(id) : document.documentElement;
+    if (!target) return false;
+
+    const token = ++scrollToken;
+    const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const start = window.scrollY;
+    const rawTop = target.getBoundingClientRect().top + start - offset;
+    const targetTop = Math.min(maxScroll, Math.max(0, rawTop));
+    const distance = Math.abs(targetTop - start);
+
+    const url = `${window.location.pathname}${window.location.search}${hash}`;
+    if (window.location.hash === hash) {
+      window.history.replaceState(null, "", url);
+    } else {
+      window.history.pushState(null, "", url);
+    }
+
+    if (distance < 1 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.scrollTo(0, targetTop);
+      return true;
+    }
+
+    const duration = scrollDuration(distance);
+    const started = performance.now();
+
+    function step(now) {
+      if (token !== scrollToken) return;
+
+      const progress = Math.min(1, (now - started) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      window.scrollTo(0, start + (targetTop - start) * eased);
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        window.scrollTo(0, targetTop);
+      }
+    }
+
+    window.requestAnimationFrame(step);
+    return true;
+  }
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || link.classList.contains("skip-link")) return;
+    if (link.target && link.target !== "_self") return;
+    if (!scrollToHash(link.getAttribute("href"))) return;
+
+    event.preventDefault();
+  });
+
+  window.addEventListener("wheel", cancelScroll, { passive: true });
+  window.addEventListener("touchstart", cancelScroll, { passive: true });
+  document.addEventListener("keydown", (event) => {
+    if (SCROLL_KEYS.has(event.key)) cancelScroll();
+  });
 
   /* ----------------------------------------------------------------
      Events and start
